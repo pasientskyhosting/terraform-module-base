@@ -5,11 +5,11 @@
 data "ignition_config" "default" {
 
   users = [
-    data.ignition_user.core.id
+    data.ignition_user.core.rendered
   ]
     
   files = [
-    data.ignition_file.etc_hostname.id    
+    data.ignition_file.etc_hostname.rendered
   ]
 
 }
