@@ -1,0 +1,22 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+*.tfvars
+**/*.tfvars
+cloud-config.*.yaml
+ubuntu_cloud_init_iso
+ubuntu_cloud_init*
+ubuntu_cloud_init
+seed_cloud_init
+seed_cloud_init*
+*.iso
+*.vmdk
+**/ignition.json
+ignition.json
+
+# Module directory and test dir
+.terraform/
+.DS_Store
+
+# Ansible
+*.retry
