@@ -65,6 +65,30 @@ variable "vlan" {
   type = list
 }
 
+variable "ip_address" {
+  type = list
+}
+
+variable "ip_address_familiy" {
+  type = string
+}
+
+variable "ip_address_prefix" {
+  type = list
+}
+
+variable "ip_address_gateway" {
+  type = list
+}
+
+variable "dns_servers" {
+  type = list
+}
+
+variable "network_interface_mtu" {
+  type = string
+}
+
 variable "disks" {
   description = "Additional disk represented by their size. e.g: [20,40,60]"
   type = list
@@ -78,4 +102,13 @@ variable "ignition_encoding" {
 variable "ssh_authorized_keys" {
   type = list
   default = []
+}
+
+variable "sshd_port" {
+  type = string
+}
+
+variable "network_interface_name" {
+  type = list
+  default = ["ens192"]
 }
