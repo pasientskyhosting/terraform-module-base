@@ -131,7 +131,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStartPre=/bin/sh -c 'until ping -c1 8.8.8.8; do sleep 1; done;'
+ExecStart=/bin/sh -c 'until ping -c1 8.8.8.8; do sleep 1; done;'
 Type=oneshot
 EOT
 
