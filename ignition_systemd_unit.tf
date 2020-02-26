@@ -87,7 +87,7 @@ EOT
 
 }
 
-data "ignition_systemd_unit" "update-engine_service" {
+data "ignition_systemd_unit" "update_engine_service" {
 
     name    = "update-engine.service"
     enabled = false
@@ -99,5 +99,40 @@ data "ignition_systemd_unit" "locksmithd_service" {
     name    = "locksmithd.service"
     enabled = false
     mask    = true
+
+}
+
+data "ignition_systemd_unit" "python_pip_service" {
+
+    name    = "python-pip.service"
+    enabled = true
+    content = <<EOT
+[Unit]
+After=net-check.service
+Requires=net-check.service
+[Service]
+ExecStart=/usr/bin/bash /opt/bootstrap_python.sh
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target
+EOT
+
+}
+
+data "ignition_systemd_unit" "net_check_service" {
+
+    name    = "net-check.service"
+    enabled = true
+    content = <<EOT
+[Unit]
+Description=Install net dependencies
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStartPre=/bin/sh -c 'until ping -c1 8.8.8.8; do sleep 1; done;'
+Type=oneshot
+EOT
 
 }

@@ -64,3 +64,34 @@ EOT
     }
 
 }
+
+data "ignition_file" "bash_python_bootstrap" {
+
+    filesystem  = "root"
+    path        = "/opt/bootstrap_python.sh"
+    mode        = 420
+
+    content {
+      content = <<EOT
+#!/bin/bash
+set -e
+
+BINDIR="/opt/bin"
+mkdir -p $BINDIR
+cd $BINDIR
+
+wget -O - https://bitbucket.org/pypy/pypy/downloads/pypy3.6-v7.3.0-linux64.tar.bz2 | tar -xjf -
+mv -n pypy3.6-v7.3.0-linux64 pypy3
+
+ln -s ./pypy3/bin/pypy3 python
+
+$BINDIR/python --version
+$BINDIR/python -m ensurepip
+ln -s $BINDIR/pypy3/bin/pip3 $BINDIR/pip3
+ln -s $BINDIR/pypy3/bin/pip3 $BINDIR/pip
+
+EOT
+      mime    = "text/plain"
+    }
+
+}

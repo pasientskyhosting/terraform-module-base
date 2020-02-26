@@ -5,10 +5,10 @@ module "vm_host" {
   hostname                    = "${var.datacenter}-vlb-test-001"
   datacenter                  = "${var.datacenter}"
   datastore_cluster           = "${var.datacenter}-data-s2"
-  disks                       = [20]
+  disks                       = [5]
   folder                      = "/"
-  memory                      = 4096
-  vcpus                       = 4
+  memory                      = 2048
+  vcpus                       = 2
   resource_pool               = "${var.datacenter}/Resources"
   template_vm                 = "templates/flatcar_2303.4.0"
   vlan                        = ["vlan-601"]
