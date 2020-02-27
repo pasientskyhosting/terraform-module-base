@@ -13,8 +13,7 @@ seed_cloud_init*
 *.vmdk
 **/ignition.json
 ignition.json
-**/tfplan
-tfplan
+
 
 # Module directory and test dir
 .terraform/
