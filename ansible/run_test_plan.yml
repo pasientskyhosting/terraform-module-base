@@ -1,0 +1,40 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+
+    - set_fact:
+        terraform_command: >
+          docker run --rm -i
+          -v {{ terraform_test_output_dir }}:/data
+          -v {{ terraform_module_output_dir }}:/module  
+          {{ terraform_deployment_image }}
+    
+    # https://www.terraform.io/docs/commands/plan.html#detailed-exitcode
+    - name: Capturing terraform plan
+      command: "{{ terraform_command }} plan -no-color -detailed-exitcode -input=false -out /data/tfplan"
+      register: terraform_plan_state
+      changed_when: false
+      args:
+        chdir: "{{ terraform_test_output_dir }}"
+      failed_when:
+        - terraform_plan_state.rc == 1 or terraform_plan_state.rc > 2
+
+    - name: Debug Terraform Plan
+      debug: var=terraform_plan_state
+      when:
+        - terraform_plan_state.rc == 1 or terraform_plan_state.rc > 2
+
+    - name: Save plan output
+      command: "{{ terraform_command }} show -no-color /data/tfplan"
+      register: terraform_show_state
+      changed_when: false
+      args:
+        chdir: "{{ terraform_test_output_dir }}"
+
+    - set_stats:
+        data:
+          terraform_show_state: "{{ terraform_show_state.stdout_lines }}"

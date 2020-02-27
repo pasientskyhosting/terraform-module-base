@@ -1,0 +1,31 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+
+    - set_fact:
+        terraform_command: >
+          docker run --rm -i
+          -v {{ terraform_test_output_dir }}:/data
+          -v {{ terraform_module_output_dir }}:/module  
+          {{ terraform_deployment_image }}
+    
+    - name: Apply terraform plan
+      command: "{{ terraform_command }} apply -input=false -auto-approve -no-color /data/tfplan"
+      register: terraform_apply_state
+      changed_when: false
+      args:
+        chdir: "{{ terraform_test_output_dir }}"
+
+    - name: "Wait for port {{ sshd_port }} to become open on the host, don't start checking for 20 seconds"
+      wait_for:
+        timeout: 300
+        port: "{{ sshd_port }}"
+        delay: 20
+
+    - set_stats:
+        data:
+          terraform_apply_state: "{{ terraform_apply_state.stdout_lines }}"

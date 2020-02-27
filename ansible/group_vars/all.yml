@@ -1,0 +1,42 @@
+terraform_project_dir: /Users/kj/Projects/github/pasientskyhosting/terraform-module-base
+
+# Module
+terraform_module_template_dir: "{{ terraform_project_dir }}/ansible/templates/module"
+terraform_module_output_dir: "{{ terraform_project_dir }}/module"
+
+# Tests
+terraform_test_output_dir: "{{ terraform_project_dir }}/test"
+terraform_test_template_dir: "{{ terraform_project_dir }}/ansible/templates/test"
+terraform_deployment_image: "pasientskyhosting/terraform-templating:v0.0.1"
+
+
+# TF vars
+adapter_type: '["vmxnet3"]'
+datacenter: '"odn1"'
+datastore_cluster: '"odn1-data-s2"'
+disks: '[5]'
+dns_servers: '["1.1.1.1", "8.8.8.8", "8.8.4.4"]'
+eagerly_scrub: 'true'
+folder: '"/"'
+hostname: '"odn1-vlb-test-001"'
+ignition_encoding: '"base64"'
+ip_address:  '["10.50.61.198"]'
+ip_address_familiy: '"ipv4"'
+ip_address_gateway: '["10.50.61.1"]'
+ip_address_prefix: '["24"]'
+memory: 2048
+network_interface_mtu: 1500
+resource_pool: '"odn1/Resources"'
+skip_customization: 'true'
+source: '"../"'
+ssh_authorized_keys: '["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCjcbd8KEujzX8cieLbd6TBsRS2mOdGf1FuQNPC22Ucg/qn0/aG8UK3/ZAhMw2RhhVObr5G2gnTxzcmQwDpnZ2rEK3QA2MoYM1NBYFmkqUudZED4Kf/CxBCH51l42Dmux50GMxdNR0bkjSH1R1f8CQwrIpiDXYLncihlXvGZy0IzVGBvML5gIcrIW3LflJu/LyjY7IbvA6t5GCNCnuFV56wUcfhcGMHpyX1If8w5+/DLmTcAS3I0120yWLw3k/+rS/TProJzIbzn9sNaKvsk6dJQw1aOANKSPrZ28//uYhPsq3qTwfhuzYjLEezd+w4uJOF4rKE5/o1r4Y4a1mnCzLtVMSxwUR7tP0ljXztRGovBtbgfEEri8ONpRCWYdHpVqUCaozW+2uQKwoccgZ4SJl3uqx60Xrqao625Mxoc86EnfTlq7N91mJJ3Nc33z+emKRrnE7P0Eh1k/RAW85AXIUDJbt5Fc20ATRiTOVLGpJTkrAphm+JHcaoo+YKzypR3r6upwsJVX1yXa8kBoSGbouAghAuRKx/IgEodSolIKDnq8KagJmBwXG9ussJpYHW607ZEMzNwwsFFEMQxyLzrVDznPNk4C88tyzpnI9Yli54KUGNehFIn0RVyN015T3KpxHVP+iciwBTo7DtDRZyjI8dfbaG3fePVok4K5B4lOVg2w== cardno:000606708586"]'
+sshd_port: '34'
+template_vm : '"templates/flatcar_2303.4.0"'
+thin_provisioned: 'false'
+vcpus: '2'
+vlan : '["vlan-601"]'
+vsphere_user: '"administrator@vsphere.local"'
+vsphere_password: '"MshJVs77E)Dwr84iqg"'
+vsphere_server: '"10.50.21.10"'
+wait_for_guest_net_routable: 'false'
+wait_for_guest_net_timeout: '0'

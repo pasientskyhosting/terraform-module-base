@@ -1,0 +1,25 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+
+    - set_fact:
+        terraform_command: >
+          docker run --rm -i
+          -v {{ terraform_test_output_dir }}:/data
+          -v {{ terraform_module_output_dir }}:/module  
+          {{ terraform_deployment_image }}
+    
+    - name: Apply terraform destroy
+      command: "{{ terraform_command }} destroy -input=false -auto-approve -no-color"
+      register: terraform_detroy_state
+      changed_when: false
+      args:
+        chdir: "{{ terraform_test_output_dir }}"
+
+    - set_stats:
+        data:
+          terraform_detroy_state: "{{ terraform_detroy_state.stdout_lines }}"

@@ -1,0 +1,51 @@
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+
+    - name: Find all template files for module
+      find:
+        paths: "{{ terraform_module_template_dir }}/"        
+        patterns: '*.j2'
+        file_type: file
+      register: terraform_module_templates
+
+    - name: Create terraform module files      
+      template: 
+        src: "{{ file.path }}"
+        dest: "{{ terraform_module_output_dir }}/{{ file.path | basename | replace('.j2','') }}"
+      delegate_to: localhost
+      with_items: "{{ terraform_module_templates.files }}"
+      loop_control:
+        loop_var: file
+      when:
+        - terraform_module_templates is defined
+        - terraform_module_templates.files | length > 0
+
+# Lint
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+
+    - set_fact:
+        terraform_command: >
+          docker run --rm -i
+          -v {{ terraform_module_output_dir }}:/data          
+          {{ terraform_deployment_image }}
+
+    - debug: var=terraform_command
+
+    - name: Capturing terraform fmt
+      command: "{{ terraform_command }} fmt ."
+      register: terraform_fmt_state
+      changed_when: false
+      args:
+        chdir: "{{ terraform_test_output_dir }}"
+
+    - name: Debug terraform fmt
+      debug: var=terraform_fmt_state.stderr
+      when:
+        - terraform_fmt_state.rc > 0
