@@ -1,12 +1,20 @@
 ---
 
 - hosts: vm
-  gather_facts: true  
+  gather_facts: false
 
   vars:
     ansible_ssh_port: "{{ sshd_port }}"
     ansible_ssh_user: core
     ansible_python_interpreter: /opt/bin/python
+
+  pre_tasks:
+
+    - name: "Wait for port {{ sshd_port }} to become open on the host, don't start checking for 20 seconds"
+      wait_for:
+        timeout: 300
+        port: "{{ sshd_port }}"
+        delay: 60
 
   tasks:
 

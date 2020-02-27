@@ -9,7 +9,7 @@
 # PROJECT_DIR=~/Projects/github/pasientskyhosting/terraform-templating
 GITHUB_DEPLOY_RSA_KEY=`cat /Users/kj/.ssh/terraform_rsa`
 
-all: build
+all: build run
 
 build: build-module build-test
 

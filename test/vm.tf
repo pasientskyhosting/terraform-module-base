@@ -34,8 +34,6 @@ module "vm_host" {
 
 }
 
-
-
 provider "vsphere" {
   user                 = var.vsphere_user
   password             = var.vsphere_password
