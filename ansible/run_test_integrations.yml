@@ -9,6 +9,17 @@
     ansible_python_interpreter: /opt/bin/python
 
   tasks:
-    
+
     # Induce an exception to see what happens
     - ping:
+
+    - name: "Searching for Flatcar Linux"
+      become: yes
+      become_user: root      
+      lineinfile:
+        path: /etc/os-release
+        line: "ID=flatcar"
+        state: present
+      check_mode: yes
+      failed_when: presence is changed
+      register: presence

@@ -20,12 +20,12 @@
       args:
         chdir: "{{ terraform_test_output_dir }}"
 
+    - set_stats:
+        data:
+          terraform_apply_state: "{{ terraform_apply_state.stdout_lines }}"
+
     - name: "Wait for port {{ sshd_port }} to become open on the host, don't start checking for 20 seconds"
       wait_for:
         timeout: 300
         port: "{{ sshd_port }}"
         delay: 20
-
-    - set_stats:
-        data:
-          terraform_apply_state: "{{ terraform_apply_state.stdout_lines }}"
