@@ -1,6 +1,6 @@
 ---
        
-- hosts: localhost
+- hosts: vm
   gather_facts: false
   connection: local
 
@@ -16,7 +16,7 @@
     - name: Create terraform test files      
       template: 
         src: "{{ file.path }}"
-        dest: "{{ terraform_test_output_dir }}/{{ file.path | basename | replace('.j2','') }}"
+        dest: "{{ terraform_test_output_dir }}/{{ inventory_hostname }}_{{ file.path | basename | replace('.j2','') }}"
       delegate_to: localhost
       with_items: "{{ terraform_test_templates.files }}"
       loop_control:

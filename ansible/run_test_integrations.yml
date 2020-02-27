@@ -21,12 +21,12 @@
     # Induce an exception to see what happens
     - ping:
 
-    - name: "Searching for Flatcar Linux"
+    - name: "Checking for OS distro"
       become: yes
       become_user: root      
       lineinfile:
         path: /etc/os-release
-        line: "ID=flatcar"
+        line: "ID={{ distro }}"
         state: present
       check_mode: yes
       failed_when: presence is changed

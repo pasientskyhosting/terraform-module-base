@@ -1,154 +1,154 @@
-module "vm_host" {
+module "{{ inventory_hostname }}" {
 
   source = "/module"
 
-  adapter_type = var.adapter_type
-  datacenter = var.datacenter
-  datastore_cluster = var.datastore_cluster
-  disks = var.disks
-  dns_servers = var.dns_servers
-  eagerly_scrub = var.eagerly_scrub
-  folder = var.folder
-  hostname = var.hostname
-  ignition_encoding = var.ignition_encoding
-  ip_address = var.ip_address
-  ip_address_familiy = var.ip_address_familiy
-  ip_address_gateway = var.ip_address_gateway
-  ip_address_prefix = var.ip_address_prefix
-  memory = var.memory
-  network_interface_mtu = var.network_interface_mtu
-  resource_pool = var.resource_pool
-  skip_customization = var.skip_customization  
-  ssh_authorized_keys = var.ssh_authorized_keys
-  sshd_port = var.sshd_port
-  template_vm  = var.template_vm
-  thin_provisioned = var.thin_provisioned
-  vcpus = var.vcpus
-  vlan  = var.vlan  
-  wait_for_guest_net_routable = var.wait_for_guest_net_routable
-  wait_for_guest_net_timeout = var.wait_for_guest_net_timeout
+  adapter_type = var.{{ inventory_hostname }}_adapter_type
+  datacenter = var.{{ inventory_hostname }}_datacenter
+  datastore_cluster = var.{{ inventory_hostname }}_datastore_cluster
+  disks = var.{{ inventory_hostname }}_disks
+  dns_servers = var.{{ inventory_hostname }}_dns_servers
+  eagerly_scrub = var.{{ inventory_hostname }}_eagerly_scrub
+  folder = var.{{ inventory_hostname }}_folder
+  hostname = var.{{ inventory_hostname }}_hostname
+  ignition_encoding = var.{{ inventory_hostname }}_ignition_encoding
+  ip_address = var.{{ inventory_hostname }}_ip_address
+  ip_address_familiy = var.{{ inventory_hostname }}_ip_address_familiy
+  ip_address_gateway = var.{{ inventory_hostname }}_ip_address_gateway
+  ip_address_prefix = var.{{ inventory_hostname }}_ip_address_prefix
+  memory = var.{{ inventory_hostname }}_memory
+  network_interface_mtu = var.{{ inventory_hostname }}_network_interface_mtu
+  resource_pool = var.{{ inventory_hostname }}_resource_pool
+  skip_customization = var.{{ inventory_hostname }}_skip_customization  
+  ssh_authorized_keys = var.{{ inventory_hostname }}_ssh_authorized_keys
+  sshd_port = var.{{ inventory_hostname }}_sshd_port
+  template_vm  = var.{{ inventory_hostname }}_template_vm
+  thin_provisioned = var.{{ inventory_hostname }}_thin_provisioned
+  vcpus = var.{{ inventory_hostname }}_vcpus
+  vlan  = var.{{ inventory_hostname }}_vlan  
+  wait_for_guest_net_routable = var.{{ inventory_hostname }}_wait_for_guest_net_routable
+  wait_for_guest_net_timeout = var.{{ inventory_hostname }}_wait_for_guest_net_timeout
 
   providers = {
-    vsphere = vsphere.default
+    vsphere = vsphere.{{ inventory_hostname }}
   }
 
 }
 
 provider "vsphere" {
-  user                 = var.vsphere_user
-  password             = var.vsphere_password
-  vsphere_server       = var.vsphere_server
-  alias                = "default"
+  user                 = var.{{ inventory_hostname }}_vsphere_user
+  password             = var.{{ inventory_hostname }}_vsphere_password
+  vsphere_server       = var.{{ inventory_hostname }}_vsphere_server
+  alias                = "{{ inventory_hostname }}"
   allow_unverified_ssl = true
 }
 
-variable "adapter_type" {
+variable "{{ inventory_hostname }}_adapter_type" {
   type = list
 }
 
-variable "datacenter" {
+variable "{{ inventory_hostname }}_datacenter" {
   type = string
 } 
 
-variable "datastore_cluster" {
+variable "{{ inventory_hostname }}_datastore_cluster" {
   type = string
 }  
 
-variable "disks" {
+variable "{{ inventory_hostname }}_disks" {
   type = list
 }  
 
-variable "dns_servers" {
+variable "{{ inventory_hostname }}_dns_servers" {
   type = list
 }  
 
-variable "eagerly_scrub" {
+variable "{{ inventory_hostname }}_eagerly_scrub" {
   type = string
 }
 
-variable "folder" {
+variable "{{ inventory_hostname }}_folder" {
   type = string
 }  
 
-variable "hostname" {
+variable "{{ inventory_hostname }}_hostname" {
   type = string
 }  
 
-variable "ignition_encoding" {
+variable "{{ inventory_hostname }}_ignition_encoding" {
   type = string
 }  
 
-variable "ip_address" {
+variable "{{ inventory_hostname }}_ip_address" {
   type = list
 }  
 
-variable "ip_address_familiy" {
+variable "{{ inventory_hostname }}_ip_address_familiy" {
   type = string
 }  
 
-variable "ip_address_gateway" {
+variable "{{ inventory_hostname }}_ip_address_gateway" {
   type = list
 }  
 
-variable "ip_address_prefix" {
+variable "{{ inventory_hostname }}_ip_address_prefix" {
   type = list
 }  
 
-variable "memory" {
+variable "{{ inventory_hostname }}_memory" {
   type = string
 }  
 
-variable "network_interface_mtu" {
+variable "{{ inventory_hostname }}_network_interface_mtu" {
   type = string
 }  
 
-variable "resource_pool" {
+variable "{{ inventory_hostname }}_resource_pool" {
   type = string
 }  
 
-variable "skip_customization" {
+variable "{{ inventory_hostname }}_skip_customization" {
   type = string
 }  
 
-variable "ssh_authorized_keys" {
+variable "{{ inventory_hostname }}_ssh_authorized_keys" {
   type = list
 }  
 
-variable "sshd_port" {
+variable "{{ inventory_hostname }}_sshd_port" {
   type = string
 }  
 
-variable "template_vm" {
+variable "{{ inventory_hostname }}_template_vm" {
   type = string
 }  
 
-variable "thin_provisioned" {
+variable "{{ inventory_hostname }}_thin_provisioned" {
   type = string
 }
 
-variable "vcpus" {
+variable "{{ inventory_hostname }}_vcpus" {
   type = string
 }
 
-variable "vlan" {
+variable "{{ inventory_hostname }}_vlan" {
   type = list
 }  
 
-variable "vsphere_password" {
+variable "{{ inventory_hostname }}_vsphere_password" {
   type = string
 }  
 
-variable "vsphere_server" {
+variable "{{ inventory_hostname }}_vsphere_server" {
   type = string
 } 
-variable "vsphere_user" {
-  type = string
-} 
-
-variable "wait_for_guest_net_routable" {
+variable "{{ inventory_hostname }}_vsphere_user" {
   type = string
 } 
 
-variable "wait_for_guest_net_timeout" {
+variable "{{ inventory_hostname }}_wait_for_guest_net_routable" {
+  type = string
+} 
+
+variable "{{ inventory_hostname }}_wait_for_guest_net_timeout" {
   type = string
 } 
