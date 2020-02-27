@@ -1,0 +1,35 @@
+module "{{ terraform_module_base__hostname }}" {
+
+  # Base
+  source                      = "{{ terraform_module_base__source }}?ref={{ terraform_module_base__module_version }}"
+  hostname                    = "{{ terraform_module_base__hostname }}"
+  datacenter                  = "{{ terraform_module_base__datacenter }}"
+  datastore_cluster           = "odn1-data-s2"
+  disks                       = {{ terraform_module_base__disks }}
+  folder                      = "{{ terraform_module_base__folder }}"
+  memory                      = {{ terraform_module_base__memory }}
+  vcpus                       = {{ terraform_module_base__vcpus }}
+  resource_pool               = "{{ terraform_module_base__resource_pool }}"
+  template_vm                 = "{{ terraform_module_base__template_vm }}"
+  vlan                        = ["vlan-601"]
+  ignition_encoding           = "{{ terraform_module_base__ignition_encoding }}"
+  adapter_type                = ["vmxnet3"]
+  wait_for_guest_net_routable = false
+  wait_for_guest_net_timeout  = 0
+  thin_provisioned            = false
+  eagerly_scrub               = true
+  skip_customization          = true
+  ip_address                  = ["10.50.61.198"]
+  ip_address_prefix           = ["24"]
+  ip_address_gateway          = ["10.50.61.1"]
+  ip_address_familiy          = "ipv4"
+  network_interface_mtu       = 1500
+  dns_servers                 = ["1.1.1.1", "8.8.8.8", "8.8.4.4"]
+  ssh_authorized_keys         = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCjcbd8KEujzX8cieLbd6TBsRS2mOdGf1FuQNPC22Ucg/qn0/aG8UK3/ZAhMw2RhhVObr5G2gnTxzcmQwDpnZ2rEK3QA2MoYM1NBYFmkqUudZED4Kf/CxBCH51l42Dmux50GMxdNR0bkjSH1R1f8CQwrIpiDXYLncihlXvGZy0IzVGBvML5gIcrIW3LflJu/LyjY7IbvA6t5GCNCnuFV56wUcfhcGMHpyX1If8w5+/DLmTcAS3I0120yWLw3k/+rS/TProJzIbzn9sNaKvsk6dJQw1aOANKSPrZ28//uYhPsq3qTwfhuzYjLEezd+w4uJOF4rKE5/o1r4Y4a1mnCzLtVMSxwUR7tP0ljXztRGovBtbgfEEri8ONpRCWYdHpVqUCaozW+2uQKwoccgZ4SJl3uqx60Xrqao625Mxoc86EnfTlq7N91mJJ3Nc33z+emKRrnE7P0Eh1k/RAW85AXIUDJbt5Fc20ATRiTOVLGpJTkrAphm+JHcaoo+YKzypR3r6upwsJVX1yXa8kBoSGbouAghAuRKx/IgEodSolIKDnq8KagJmBwXG9ussJpYHW607ZEMzNwwsFFEMQxyLzrVDznPNk4C88tyzpnI9Yli54KUGNehFIn0RVyN015T3KpxHVP+iciwBTo7DtDRZyjI8dfbaG3fePVok4K5B4lOVg2w== cardno:000606708586"]
+  sshd_port                   = 34
+
+  providers = {
+    vsphere = vsphere.{{ terraform_module_base__provider }}
+  }
+
+}
